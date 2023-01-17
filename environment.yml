@@ -1,0 +1,22 @@
+name: typosaurus
+
+dependencies:
+  - python=3.10
+  - conda-forge::pip
+  - nvidia::cudatoolkit=11.3
+  - pytorch::pytorch=1.12.1
+  - pip:
+      - pandas==1.5.2
+      - ipykernel==6.17.1
+      - ipywidgets==8.0.4
+      - python-dotenv==0.21.0
+      - rich==12.6.0
+      - fastparquet==2022.12.0
+      - matplotlib==3.6.2
+      - altair==4.2.0
+      - datasets==2.8.0
+      - transformers==4.25.1
+      - evaluate==0.4.0
+      - nltk==3.8.1
+      - black==22.12.0
+      - streamlit==1.16.0
