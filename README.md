@@ -1,6 +1,6 @@
 # Typosaurus
 
-Typosaurus is a semantic linter that automatically detects typos and errors in your code. It is built using SantaCoder LLM, a 1.1B parameter model (https://huggingface.co/bigcode/santacoder) and uses its Fill-in-the-middle mode to detect errors that normal linters are not able to pick up.
+Typosaurus is a semantic linter that automatically detects typos and errors in your code. It is built using SantaCoder LLM, a 1.1B parameter model (https://huggingface.co/bigcode/santacoder) and uses its Fill-in-the-middle mode to detect errors that normal linters are not able to pick up. It is currently just a proof of concept.
 
 ## How It Works
 
@@ -13,15 +13,21 @@ def hello():
   print("hello world")
 ```
 
-Typosaurus would split into substrings (currently naively based on whitespace) eg ['def', 'hello():', 'print("hello', 'world")']. It would then for each substring rearrange it into a prompt in a special fill-in-the-middle format SantaCoder was trained on https://huggingface.co/bigcode/santacoder#fill-in-the-middle
+Typosaurus would split the code into substrings (currently naively based on whitespace) eg `['def', 'hello():', 'print("hello', 'world")']`. It then rearranges the context around each substring into a prompt in a special [fill-in-the-middle format](https://huggingface.co/bigcode/santacoder#fill-in-the-middle) SantaCoder was trained on.
 
-For example, for the `hello():` substring it would create a prompt like this
+For example, for the `hello():` substring above it would create a prompt like this
 
 ```
 <fim-prefix>def <fim-suffix>\n    print("Hello world!")<fim-middle>
 ```
 
-SantaCoder is trained to generate the code in the middle after the special <fim-middle> substring. We then look at whether the code SantaCoder generates matches the snippet from the actual source we're evaluating. If they're different and SantaCoder has high confidence in its generation, we flag it as a potential bug.
+SantaCoder generates candidate completions for the missing substring. We then look at whether any of the strings SantaCoder generated match the string from the actual source we're evaluating. If they're different and SantaCoder has high confidence in its generation, we flag it as a potential bug.
+
+## Example Output
+
+This is an example of the Streamlit demo when passed in a chunk of code with an error.
+
+https://user-images.githubusercontent.com/176426/213827814-c9099877-e821-49db-a299-b6a444eb8577.mov
 
 ## Files
 
@@ -40,7 +46,3 @@ Steps:
 - Install the project dependencies: `mamba env update --prune -f environment.yml`
 - Activate the environment: `conda activate typosaurus`
 - Run the demo: `streamlit run streamlit-demo.py`
-
-## Note
-
-Typosaurus is currently just a proof of concept.
