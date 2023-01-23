@@ -4,7 +4,7 @@ Typosaurus is a semantic linter that automatically detects typos and errors in y
 
 ## How It Works
 
-Typosaurus extracts a substring from the code sample and gives the LLM the strings before/after it. It then asks SantaCoder to predict the string in the middle. If SantaCoder has a high-confidence prediction that doesn't match the actual code in the file, Typosaurus flags it as a potential bug.
+Typosaurus "blanks out" a substring from the code sample and gives SantaCoder the text before/after it. It then asks SantaCoder to predict the missing substring. If SantaCoder has a high-confidence prediction that doesn't match the actual code in the file, Typosaurus flags it as a potential bug.
 
 For example, if the code snippet is:
 
@@ -13,7 +13,7 @@ def hello():
   print("hello world")
 ```
 
-Typosaurus would split the code into substrings (currently naively based on whitespace) eg `['def', 'hello():', 'print("hello', 'world")']`. It then rearranges the context around each substring into a prompt in a special [fill-in-the-middle format](https://huggingface.co/bigcode/santacoder#fill-in-the-middle) SantaCoder was trained on.
+Typosaurus would split the code into substrings (currently naively based on whitespace) as `['def', 'hello():', 'print("hello', 'world")']`. It then rearranges the context around each substring into a prompt in a special [fill-in-the-middle format](https://huggingface.co/bigcode/santacoder#fill-in-the-middle) SantaCoder was trained on.
 
 For example, for the `hello():` substring above it would create a prompt like this
 
