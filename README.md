@@ -29,6 +29,12 @@ This is an example of the [Streamlit demo](./streamlit-demo.py) when passed in a
 
 https://user-images.githubusercontent.com/176426/213827814-c9099877-e821-49db-a299-b6a444eb8577.mov
 
+## Example Output
+
+This is an example of the Streamlit demo when passed in a chunk of code with an error.
+
+https://user-images.githubusercontent.com/176426/213827814-c9099877-e821-49db-a299-b6a444eb8577.mov
+
 ## Files
 
 Typosaurus includes the following files:
