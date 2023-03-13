@@ -13,7 +13,7 @@ def hello():
   print("hello world")
 ```
 
-Typosaurus would split the code into substrings (currently naively based on whitespace) as `['def', 'hello():', 'print("hello', 'world")']`. It then rearranges the context around each substring into a prompt in a special [fill-in-the-middle format](https://huggingface.co/bigcode/santacoder#fill-in-the-middle) SantaCoder was trained on.
+Typosaurus would split the code into substrings (currently naively based on whitespace) eg `['def', 'hello():', 'print("hello', 'world")']`. It then rearranges the context around each substring into a prompt in a special [fill-in-the-middle format](https://huggingface.co/bigcode/santacoder#fill-in-the-middle) SantaCoder was trained on.
 
 For example, for the `hello():` substring above it would create a prompt like this
 
@@ -26,12 +26,6 @@ SantaCoder generates candidate completions for the missing substring. We then lo
 ## Example Output
 
 This is an example of the [Streamlit demo](./streamlit-demo.py) when passed in a chunk of code with an error.
-
-https://user-images.githubusercontent.com/176426/213827814-c9099877-e821-49db-a299-b6a444eb8577.mov
-
-## Example Output
-
-This is an example of the Streamlit demo when passed in a chunk of code with an error.
 
 https://user-images.githubusercontent.com/176426/213827814-c9099877-e821-49db-a299-b6a444eb8577.mov
 
